@@ -300,45 +300,46 @@
         Build smart contracts, launch interactive web pages, and deploy directly to Celo using natural language prompts. Never lose custody of your keys.
       </p>
 
-      <!-- EMAIL & NAME COLLECTION FORM -->
-      <div id="early-access" style="max-width: 600px; margin: 0 auto 20px;">
-        <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)" class="form-inputs-container">
-          <!-- Full Name Field -->
-          <div style="flex: 1; display: flex; align-items: center;">
-            <input 
-              type="text" 
-              id="name-input" 
-              placeholder="Your full name..." 
-              required 
-              class="input-field"
-            />
+      <!-- DIRECT EMBEDDED LARK REGISTRATION FORM -->
+      <div id="early-access" style="max-width: 580px; margin: 0 auto 30px; text-align: left;">
+        <div class="card-gb" style="padding: 16px; border: 1.5px solid var(--violet-mist); background: #ffffff; box-shadow: var(--shadow-pop); border-radius: var(--radius-card); overflow: hidden; position: relative;">
+          
+          <!-- Card Header Bar -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--hairline);">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: #1F9D6B; display: inline-block;"></span>
+              <span class="font-display" style="font-size: 13px; font-weight: 700; color: var(--violet-ink);">
+                Sprint Registration
+              </span>
+            </div>
+            <span class="font-mono" style="font-size: 11px; color: var(--grey-600); background: var(--tint); padding: 3px 10px; border-radius: 9999px;">
+              Celo Builder Cohort
+            </span>
           </div>
 
-          <div class="input-divider"></div>
-
-          <!-- Email Field -->
-          <div style="flex: 1.2; display: flex; align-items: center;">
-            <input 
-              type="email" 
-              id="email-input" 
-              placeholder="Your email address..." 
-              required 
-              class="input-field"
-            />
+          <!-- Loading Placeholder -->
+          <div id="form-loader" style="height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--grey-600); font-size: 14px; gap: 12px;">
+            <div style="width: 32px; height: 32px; border: 3px solid var(--tint); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+            <span>Loading registration form...</span>
           </div>
 
-          <!-- Submit Button -->
-          <button type="submit" id="submit-btn" class="btn-primary" style="padding: 12px 24px; font-size: 14px; white-space: nowrap; justify-content: center;">
-            <span>Get Access</span>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
+          <!-- The Live Lark Form iframe -->
+          <iframe
+            id="lark-iframe"
+            src="https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb"
+            title="GoodBuild Registration Form"
+            style="width: 100%; height: 420px; border: none; display: none; border-radius: 14px;"
+            allow="clipboard-write; fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
+            onload="document.getElementById('form-loader').style.display='none'; this.style.display='block';"
+          ></iframe>
 
-        <!-- Form Status Message -->
-        <div id="form-message" style="display: none; margin-top: 14px; font-size: 14px; font-weight: 500;"></div>
+        </div>
       </div>
+
+      <style>
+        @keyframes spin { to { transform: rotate(360deg); } }
+      </style>
 
       <div style="display: flex; justify-content: center; align-items: center; gap: 18px; color: var(--grey-600); font-size: 12px;">
         <span>🔒 100% Self-Custodial</span>
@@ -554,13 +555,15 @@
       console.log('Attributed visit to promoter:', promoterRef);
     }
 
-    // 2. SUBMIT LEAD TO STORAGE / WEBHOOK
+    // 2. SUBMIT LEAD DIRECT TO FORMSPREE & REDIRECT TO HACKATHON
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaggwyd";
+    const HACKATHON_PAGE = "hackathon.html";
+
     async function handleWaitlistSubmit(event) {
       event.preventDefault();
       const fullName = document.getElementById('name-input').value.trim();
       const email = document.getElementById('email-input').value.trim();
       const ref = localStorage.getItem('goodbuild_referrer') || promoterRef;
-      const messageDiv = document.getElementById('form-message');
       const submitBtn = document.getElementById('submit-btn');
 
       if (!email || !fullName) return;
@@ -568,41 +571,41 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span>Saving...</span>`;
 
+      // 1. Save locally for redundancy
+      const lead = {
+        fullName: fullName,
+        email: email,
+        referrer: ref,
+        timestamp: new Date().toISOString()
+      };
+      const existingLeads = JSON.parse(localStorage.getItem('goodbuild_leads') || '[]');
+      existingLeads.push(lead);
+      localStorage.setItem('goodbuild_leads', JSON.stringify(existingLeads));
+
+      // 2. Transmit via JSON POST to Formspree endpoint
       try {
-        // Collect local lead payload
-        const lead = {
-          fullName: fullName,
-          email: email,
-          referrer: ref,
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent
-        };
-
-        // Store in localStorage lead queue
-        const existingLeads = JSON.parse(localStorage.getItem('goodbuild_leads') || '[]');
-        existingLeads.push(lead);
-        localStorage.setItem('goodbuild_leads', JSON.stringify(existingLeads));
-
-        // OPTIONAL: Send to your webhook or Lark/Google Sheets if configured:
-        // await fetch('YOUR_WEBHOOK_URL', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(lead)
-        // });
-
-        messageDiv.style.display = 'block';
-        messageDiv.style.color = '#1f9d6b';
-        messageDiv.innerHTML = `✓ Welcome aboard, <b>${fullName}</b>! Early access details will be sent to <b>${email}</b>.`;
-        document.getElementById('name-input').value = '';
-        document.getElementById('email-input').value = '';
+        await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "Full Name": fullName,
+            "Email Address": email,
+            "Referral Code": ref,
+            "Submission Timestamp": new Date().toISOString()
+          })
+        });
       } catch (err) {
-        messageDiv.style.display = 'block';
-        messageDiv.style.color = '#d2384b';
-        messageDiv.textContent = 'Submission error. Please try again.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>Get Access</span>`;
+        console.warn("Background sync error, continuing redirect:", err);
       }
+
+      // 3. Smooth transition to Hackathon Details
+      submitBtn.innerHTML = `<span>Taking you there...</span>`;
+      setTimeout(() => {
+        window.location.href = `${HACKATHON_PAGE}?user=${encodeURIComponent(fullName)}&ref=${encodeURIComponent(ref)}`;
+      }, 400);
     }
   </script>
 </body>
