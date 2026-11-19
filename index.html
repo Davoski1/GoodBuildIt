@@ -276,7 +276,7 @@
 
   <!-- HERO SECTION -->
   <section style="padding: 50px 0 70px; text-align: center;">
-    <div class="container" style="max-width: 860px;">
+    <div class="container" style="max-width: 1040px;">
       
       <!-- Top Pill -->
       <div style="margin-bottom: 24px;">
@@ -296,13 +296,24 @@
         </span>
       </h1>
 
-      <p style="font-size: 18px; color: var(--grey-600); max-width: 620px; margin: 0 auto 36px; line-height: 1.6;">
+      <p style="font-size: 18px; color: var(--grey-600); max-width: 660px; margin: 0 auto 40px; line-height: 1.6;">
         Build smart contracts and launch decentralized applications using natural language prompts on Celo. Register below to receive your hackathon brief, tracks, and submission portal.
       </p>
 
-      <!-- DIRECT EMBEDDED LARK REGISTRATION FORM -->
-      <div id="early-access" style="max-width: 580px; margin: 0 auto 30px; text-align: left;">
-        <div class="card-gb" style="padding: 16px; border: 1.5px solid var(--violet-mist); background: #ffffff; box-shadow: var(--shadow-pop); border-radius: var(--radius-card); overflow: hidden; position: relative;">
+      <!-- 2-COLUMN HERO SHOWCASE: $1,000,000 ARTWORK (LEFT) + FORM (RIGHT) -->
+      <div id="early-access" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; align-items: stretch; margin-bottom: 30px; text-align: left;">
+        
+        <!-- LEFT COLUMN: $1,000,000 Visual Anchor Poster Card -->
+        <div class="card-gb animate-float" style="padding: 0; overflow: hidden; border: 1.5px solid var(--violet-mist); background: #fdfaff; box-shadow: var(--shadow-pop); display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+          <img 
+            src="goodbuild_million_poster.jpg" 
+            alt="$1,000,000 Say it. Sign it. Ship it." 
+            style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;"
+          />
+        </div>
+
+        <!-- RIGHT COLUMN: Direct Embedded Lark Form Card -->
+        <div class="card-gb" style="padding: 18px; border: 1.5px solid var(--violet-mist); background: #ffffff; box-shadow: var(--shadow-pop); border-radius: var(--radius-card); display: flex; flex-direction: column;">
           
           <!-- Card Header Bar -->
           <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--hairline);">
@@ -314,9 +325,6 @@
             </div>
             <span class="font-mono" style="font-size: 11px; color: var(--grey-600); background: var(--tint); padding: 3px 10px; border-radius: 9999px;">
               Official Entry Form
-            </span>
-          </div>
-              Celo Builder Cohort
             </span>
           </div>
 
@@ -331,20 +339,21 @@
             id="lark-iframe"
             src="https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb"
             title="GoodBuild Registration Form"
-            style="width: 100%; height: 420px; border: none; display: none; border-radius: 14px;"
+            style="width: 100%; height: 430px; border: none; display: none; border-radius: 14px; flex-grow: 1;"
             allow="clipboard-write; fullscreen"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
             onload="document.getElementById('form-loader').style.display='none'; this.style.display='block';"
           ></iframe>
 
         </div>
+
       </div>
 
       <style>
         @keyframes spin { to { transform: rotate(360deg); } }
       </style>
 
-      <div style="display: flex; justify-content: center; align-items: center; gap: 18px; color: var(--grey-600); font-size: 12px;">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 18px; color: var(--grey-600); font-size: 12px; margin-top: 10px;">
         <span>🔒 100% Self-Custodial</span>
         <span>•</span>
         <span>⚡ Audited Building Blocks</span>
@@ -560,7 +569,7 @@
 
     // 2. SUBMIT LEAD DIRECT TO FORMSPREE & REDIRECT TO HACKATHON
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaggwyd";
-    const HACKATHON_PAGE = "hackathon.html";
+    const HACKATHON_PAGE = "https://goodbuildit.xyz/hackathon";
 
     async function handleWaitlistSubmit(event) {
       event.preventDefault();
