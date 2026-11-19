@@ -16,29 +16,22 @@ export const InteractivePreview: React.FC = () => {
           }}
         >
           {/* Mockup Header Bar */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingBottom: '14px',
-              borderBottom: '1px solid var(--hairline)',
-              marginBottom: '18px',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F56', display: 'inline-block' }}></span>
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FFBD2E', display: 'inline-block' }}></span>
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27C93F', display: 'inline-block' }}></span>
+          <div className="mockup-header-bar">
+            <div className="mockup-header-left">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F56', display: 'inline-block' }}></span>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FFBD2E', display: 'inline-block' }}></span>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27C93F', display: 'inline-block' }}></span>
+              </div>
               <span
-                className="font-mono"
+                className="font-mono mockup-url-pill"
                 style={{
                   fontSize: '12px',
                   color: 'var(--grey-600)',
-                  marginLeft: '12px',
                   background: 'var(--tint)',
                   padding: '4px 12px',
                   borderRadius: '8px',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 goodbuildit.xyz/create
@@ -46,13 +39,15 @@ export const InteractivePreview: React.FC = () => {
             </div>
 
             <div
-              className="pill-badge"
+              className="pill-badge mockup-status-pill"
               style={{
                 fontSize: '11px',
                 padding: '4px 10px',
                 background: '#E8F8F0',
                 color: '#1F9D6B',
                 border: '1px solid rgba(31,157,107,0.2)',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
             >
               ● Auto-Compiling
