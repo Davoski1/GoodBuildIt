@@ -353,7 +353,7 @@
           <div>
             <a 
               id="fullscreen-form-btn"
-              href="https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb" 
+              href="https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpwsjSt2NDW2P6Tvz9iUQKEg" 
               class="btn-primary" 
               style="width: 100%; text-align: center; justify-content: center; padding: 18px 24px; font-size: 16px; font-weight: 700; border-radius: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 25px rgba(89, 46, 129, 0.25);"
             >
@@ -577,30 +577,26 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 1. EXTRACT & PASS AMBASSADOR / REFERRAL ID & DATE TO LARK IFRAME
+    // 1. EXTRACT & PASS AMBASSADOR / REFERRAL ID TO LARK FORM
     const urlParams = new URLSearchParams(window.location.search);
     const promoterRef = urlParams.get('ref') || urlParams.get('promoter') || '';
     
-    // Auto-calculate today's ISO date string (YYYY-MM-DD)
-    const todayDate = new Date().toISOString().split('T')[0];
-
     const fullscreenBtn = document.getElementById('fullscreen-form-btn');
-    const baseFormUrl = "https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb";
+    const baseFormUrl = "https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpwsjSt2NDW2P6Tvz9iUQKEg";
 
-    const queryParts = [];
+    let targetUrl = baseFormUrl;
 
     if (promoterRef) {
       localStorage.setItem('goodbuild_referrer', promoterRef);
       console.log('Attributed visit to promoter:', promoterRef);
-      queryParts.push(`prefill_Referral%20code=${encodeURIComponent(promoterRef)}`);
-      queryParts.push(`prefill_Referral+code=${encodeURIComponent(promoterRef)}`);
-      queryParts.push(`ref=${encodeURIComponent(promoterRef)}`);
+
+      // Lark Official Syntax: ?prefill_[Question]=[value]&hide_[Question]=1
+      // Both populates the ambassador code AND hides the question from the user!
+      targetUrl = `${baseFormUrl}?prefill_Referral%20code=${encodeURIComponent(promoterRef)}&hide_Referral%20code=1`;
     }
 
-    const fullFormUrl = queryParts.length > 0 ? `${baseFormUrl}?${queryParts.join('&')}` : baseFormUrl;
-
     if (fullscreenBtn) {
-      fullscreenBtn.href = fullFormUrl;
+      fullscreenBtn.href = targetUrl;
     }
   </script>
 </body>
