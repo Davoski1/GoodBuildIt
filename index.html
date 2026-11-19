@@ -218,13 +218,110 @@
     }
 
     header {
-      padding: 24px 0;
+      padding: 20px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    /* CODE & TERMINAL HIGHLIGHT */
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 16px 0;
+      }
+      .header-actions .pill-badge {
+        display: none; /* Hide secondary network pill on tight mobile screens to prevent wrapping/overlap */
+      }
+      .header-actions .btn-primary {
+        padding: 8px 16px;
+        font-size: 12px;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    @media (min-width: 820px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1.15fr;
+        gap: 32px;
+      }
+    }
+
+    .poster-card {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1.5px solid var(--violet-mist);
+      background: #fdfaff;
+      box-shadow: var(--shadow-pop);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: auto;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      border-radius: inherit;
+    }
+
+    .register-card {
+      padding: 28px 20px;
+      border: 1.5px solid var(--violet-mist);
+      background: #ffffff;
+      box-shadow: var(--shadow-pop);
+      border-radius: var(--radius-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 640px) {
+      .register-card {
+        padding: 36px 32px;
+      }
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    @media (min-width: 768px) {
+      .preview-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
     .terminal-card {
       background: #181124;
       color: #e5daf0;
@@ -247,7 +344,7 @@
   <!-- NAVIGATION -->
   <div class="container">
     <header>
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="header-brand">
         <!-- GOODBUILD BRAND SVG ICON -->
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="36" height="36" rx="12" fill="#592E81"/>
@@ -259,7 +356,7 @@
         </span>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 12px;">
+      <div class="header-actions">
         <span class="pill-badge">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
             <circle cx="4" cy="4" r="3" fill="#1F9D6B"/>
@@ -301,19 +398,19 @@
       </p>
 
       <!-- 2-COLUMN HERO SHOWCASE: $1,000,000 ARTWORK (LEFT) + FORM (RIGHT) -->
-      <div id="early-access" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; align-items: stretch; margin-bottom: 30px; text-align: left;">
+      <div id="early-access" class="hero-grid">
         
         <!-- LEFT COLUMN: $1,000,000 Visual Anchor Poster Card -->
-        <div class="card-gb animate-float" style="padding: 0; overflow: hidden; border: 1.5px solid var(--violet-mist); background: #fdfaff; box-shadow: var(--shadow-pop); display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+        <div class="card-gb animate-float poster-card">
           <img 
             src="goodbuild_million_poster.jpg" 
             alt="$1,000,000 Say it. Sign it. Ship it." 
-            style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;"
+            class="poster-img"
           />
         </div>
 
         <!-- RIGHT COLUMN: Clean Action Card with Direct Fullscreen Register Button -->
-        <div class="card-gb" style="padding: 36px 28px; border: 1.5px solid var(--violet-mist); background: #ffffff; box-shadow: var(--shadow-pop); border-radius: var(--radius-card); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card-gb register-card">
           
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
@@ -407,7 +504,7 @@
         </div>
 
         <!-- 2-Column Visual Anchor Layout -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: stretch;">
+        <div class="preview-grid">
           
           <!-- LEFT: The Conversational Prompt Input Simulation -->
           <div style="background: var(--tint); border-radius: var(--radius-block); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--violet-mist);">
