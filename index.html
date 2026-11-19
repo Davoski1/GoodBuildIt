@@ -553,71 +553,26 @@
     </div>
   </footer>
 
-  <!-- CLIENT SCRIPT: REFERRAL TRACKING + EMAIL SUBMISSION -->
+  <!-- CLIENT SCRIPT: REFERRAL TRACKING + EMBED PREFILL -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 1. EXTRACT & PERSIST PROMOTER REFERRAL ID FROM URL (e.g. ?ref=adeola)
+    // 1. EXTRACT & PASS AMBASSADOR / REFERRAL ID TO LARK IFRAME
     const urlParams = new URLSearchParams(window.location.search);
-    const promoterRef = urlParams.get('ref') || urlParams.get('promoter') || 'direct';
+    const promoterRef = urlParams.get('ref') || urlParams.get('promoter') || '';
     
-    // Save to localStorage so it stays tracked
-    if (promoterRef !== 'direct') {
+    if (promoterRef) {
       localStorage.setItem('goodbuild_referrer', promoterRef);
       console.log('Attributed visit to promoter:', promoterRef);
-    }
 
-    // 2. SUBMIT LEAD DIRECT TO FORMSPREE & REDIRECT TO HACKATHON
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaggwyd";
-    const HACKATHON_PAGE = "https://goodbuildit.xyz/hackathon";
-
-    async function handleWaitlistSubmit(event) {
-      event.preventDefault();
-      const fullName = document.getElementById('name-input').value.trim();
-      const email = document.getElementById('email-input').value.trim();
-      const ref = localStorage.getItem('goodbuild_referrer') || promoterRef;
-      const submitBtn = document.getElementById('submit-btn');
-
-      if (!email || !fullName) return;
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Saving...</span>`;
-
-      // 1. Save locally for redundancy
-      const lead = {
-        fullName: fullName,
-        email: email,
-        referrer: ref,
-        timestamp: new Date().toISOString()
-      };
-      const existingLeads = JSON.parse(localStorage.getItem('goodbuild_leads') || '[]');
-      existingLeads.push(lead);
-      localStorage.setItem('goodbuild_leads', JSON.stringify(existingLeads));
-
-      // 2. Transmit via JSON POST to Formspree endpoint
-      try {
-        await fetch(FORMSPREE_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            "Full Name": fullName,
-            "Email Address": email,
-            "Referral Code": ref,
-            "Submission Timestamp": new Date().toISOString()
-          })
-        });
-      } catch (err) {
-        console.warn("Background sync error, continuing redirect:", err);
+      // Dynamically attach referral prefill parameters to Lark Form iframe
+      const larkIframe = document.getElementById('lark-iframe');
+      if (larkIframe) {
+        const baseFormUrl = "https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb";
+        // Lark prefill parameters for "Referral code"
+        const prefillQuery = `?prefill_Referral%20code=${encodeURIComponent(promoterRef)}&prefill_Referral+code=${encodeURIComponent(promoterRef)}&ref=${encodeURIComponent(promoterRef)}`;
+        larkIframe.src = baseFormUrl + prefillQuery;
       }
-
-      // 3. Smooth transition to Hackathon Details
-      submitBtn.innerHTML = `<span>Taking you there...</span>`;
-      setTimeout(() => {
-        window.location.href = `${HACKATHON_PAGE}?user=${encodeURIComponent(fullName)}&ref=${encodeURIComponent(ref)}`;
-      }, 400);
     }
   </script>
 </body>
