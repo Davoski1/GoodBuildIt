@@ -312,37 +312,58 @@
           />
         </div>
 
-        <!-- RIGHT COLUMN: Direct Embedded Lark Form Card -->
-        <div class="card-gb" style="padding: 18px; border: 1.5px solid var(--violet-mist); background: #ffffff; box-shadow: var(--shadow-pop); border-radius: var(--radius-card); display: flex; flex-direction: column;">
+        <!-- RIGHT COLUMN: Clean Action Card with Direct Fullscreen Register Button -->
+        <div class="card-gb" style="padding: 36px 28px; border: 1.5px solid var(--violet-mist); background: #ffffff; box-shadow: var(--shadow-pop); border-radius: var(--radius-card); display: flex; flex-direction: column; justify-content: space-between;">
           
-          <!-- Card Header Bar -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--hairline);">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: #1F9D6B; display: inline-block;"></span>
-              <span class="font-display" style="font-size: 13px; font-weight: 700; color: var(--violet-ink);">
-                Hackathon Participant Registration
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+              <span class="pill-badge" style="font-size: 11px; padding: 4px 12px; background: #E8F8F0; color: #1F9D6B; border: 1px solid rgba(31,157,107,0.2);">
+                ● Registrations Active
+              </span>
+              <span class="font-mono" style="font-size: 12px; color: var(--grey-600);">
+                Cohort-01
               </span>
             </div>
-            <span class="font-mono" style="font-size: 11px; color: var(--grey-600); background: var(--tint); padding: 3px 10px; border-radius: 9999px;">
-              Official Entry Form
-            </span>
+
+            <h3 class="font-display" style="font-size: 26px; font-weight: 800; color: var(--violet-ink); line-height: 1.2; margin-bottom: 12px;">
+              Hackathon Participant Registration
+            </h3>
+
+            <p style="font-size: 15px; color: var(--grey-600); line-height: 1.6; margin-bottom: 24px;">
+              Register to receive your official track assignments, verified starter templates, and Celo development credits. Submitting takes less than 60 seconds.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; font-size: 13px; color: var(--ink);">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color: #1F9D6B; font-weight: bold;">✓</span>
+                <span>Direct Access to $1,000,000 Ecosystem Bounty Track</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color: #1F9D6B; font-weight: bold;">✓</span>
+                <span>Official Celo Builder Onboarding & Support</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color: #1F9D6B; font-weight: bold;">✓</span>
+                <span>Immediate Hackathon Portal & Submission Redirect</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Loading Placeholder -->
-          <div id="form-loader" style="height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--grey-600); font-size: 14px; gap: 12px;">
-            <div style="width: 32px; height: 32px; border: 3px solid var(--tint); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
-            <span>Loading registration form...</span>
+          <!-- PRIMARY FULLSCREEN REGISTER BUTTON -->
+          <div>
+            <a 
+              id="fullscreen-form-btn"
+              href="https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb" 
+              class="btn-primary" 
+              style="width: 100%; text-align: center; justify-content: center; padding: 18px 24px; font-size: 16px; font-weight: 700; border-radius: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 25px rgba(89, 46, 129, 0.25);"
+            >
+              <span>Register for Hackathon</span>
+              <span style="font-size: 18px;">→</span>
+            </a>
+            <p style="text-align: center; font-size: 11px; color: var(--grey-400); margin-top: 10px;">
+              Opens official entry registry • Instant confirmation
+            </p>
           </div>
-
-          <!-- The Live Lark Form iframe (Unsandboxed to allow full parent window redirect) -->
-          <iframe
-            id="lark-iframe"
-            src="https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb"
-            title="GoodBuild Registration Form"
-            style="width: 100%; height: 430px; border: none; display: none; border-radius: 14px; flex-grow: 1;"
-            allow="clipboard-write; fullscreen"
-            onload="document.getElementById('form-loader').style.display='none'; this.style.display='block';"
-          ></iframe>
 
         </div>
 
@@ -563,23 +584,23 @@
     // Auto-calculate today's ISO date string (YYYY-MM-DD)
     const todayDate = new Date().toISOString().split('T')[0];
 
-    const larkIframe = document.getElementById('lark-iframe');
-    if (larkIframe) {
-      const baseFormUrl = "https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb";
-      
-      const queryParts = [
-        `prefill_Date=${encodeURIComponent(todayDate)}`
-      ];
+    const fullscreenBtn = document.getElementById('fullscreen-form-btn');
+    const baseFormUrl = "https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpH0VojpqpI0dhTnzk3haAQb";
 
-      if (promoterRef) {
-        localStorage.setItem('goodbuild_referrer', promoterRef);
-        console.log('Attributed visit to promoter:', promoterRef);
-        queryParts.push(`prefill_Referral%20code=${encodeURIComponent(promoterRef)}`);
-        queryParts.push(`prefill_Referral+code=${encodeURIComponent(promoterRef)}`);
-        queryParts.push(`ref=${encodeURIComponent(promoterRef)}`);
-      }
+    const queryParts = [];
 
-      larkIframe.src = `${baseFormUrl}?${queryParts.join('&')}`;
+    if (promoterRef) {
+      localStorage.setItem('goodbuild_referrer', promoterRef);
+      console.log('Attributed visit to promoter:', promoterRef);
+      queryParts.push(`prefill_Referral%20code=${encodeURIComponent(promoterRef)}`);
+      queryParts.push(`prefill_Referral+code=${encodeURIComponent(promoterRef)}`);
+      queryParts.push(`ref=${encodeURIComponent(promoterRef)}`);
+    }
+
+    const fullFormUrl = queryParts.length > 0 ? `${baseFormUrl}?${queryParts.join('&')}` : baseFormUrl;
+
+    if (fullscreenBtn) {
+      fullscreenBtn.href = fullFormUrl;
     }
   </script>
 </body>
