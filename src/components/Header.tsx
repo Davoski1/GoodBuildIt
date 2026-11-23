@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  scholarshipOnly?: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = ({ scholarshipOnly = false }) => {
   return (
     <div className="container">
       <header
@@ -13,7 +17,7 @@ export const Header: React.FC = () => {
           flexWrap: 'wrap',
         }}
       >
-        <a href="#/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* GOODBUILD BRAND SVG ICON */}
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="36" height="36" rx="12" fill="#592E81" />
@@ -29,11 +33,11 @@ export const Header: React.FC = () => {
               color: 'var(--violet-ink)',
             }}
           >
-            GoodBuild
+            {scholarshipOnly ? 'GoodBuild Scholarship' : 'GoodBuild'}
           </span>
-        </a>
+        </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+        {!scholarshipOnly && <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
           <span className="pill-badge header-network-pill">
             <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
               <circle cx="4" cy="4" r="3" fill="#1F9D6B" />
@@ -66,7 +70,7 @@ export const Header: React.FC = () => {
           >
             Join Hackathon
           </a>
-        </div>
+        </div>}
       </header>
       <style>{`
         @media (max-width: 520px) {

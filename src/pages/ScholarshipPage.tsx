@@ -2,14 +2,17 @@ import React from 'react';
 import { Header } from '../components/Header';
 
 interface ScholarshipPageProps {
-  registrationUrl: string;
+  communityConfirmed: boolean;
+  onCommunityConfirmation: () => void;
 }
 
-export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUrl }) => {
-  const scrollToRegistration = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    document.getElementById('scholarship-registration')?.scrollIntoView({ behavior: 'smooth' });
-  };
+const whatsappCommunityUrl = 'https://chat.whatsapp.com/Fnj14GKHLsh2wNkGCQjRmZ?s=cl&p=a&iam=2';
+
+export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
+  communityConfirmed,
+  onCommunityConfirmation,
+}) => {
+  const [communityInviteOpened, setCommunityInviteOpened] = React.useState(false);
 
   return (
     <div style={{ position: 'relative', overflowX: 'hidden', minHeight: '100vh', paddingBottom: '60px' }}>
@@ -18,30 +21,11 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
       <div className="ambient-glow" style={{ top: '480px', right: '-150px', width: '480px', height: '480px' }} />
 
       {/* SITE HEADER */}
-      <Header />
+      <Header scholarshipOnly />
 
       {/* TOP SUB-NAVIGATION */}
       <div className="container" style={{ maxWidth: '1060px', paddingTop: '16px', paddingBottom: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-          <a
-            href="#/"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '13px',
-              fontWeight: 600,
-              color: 'var(--violet)',
-              textDecoration: 'none',
-              background: 'var(--tint)',
-              padding: '6px 14px',
-              borderRadius: '9999px',
-              border: '1px solid var(--violet-mist)'
-            }}
-          >
-            <span>←</span> Back to Main Hackathon Overview
-          </a>
-
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span
               className="pill-badge"
@@ -69,6 +53,66 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
           </div>
         </div>
       </div>
+
+      <section style={{ padding: '16px 0 8px' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div
+            className="card-gb"
+            style={{
+              padding: '28px',
+              border: '2px solid #25D366',
+              background: 'linear-gradient(135deg, #f0fff6 0%, #ffffff 100%)',
+              textAlign: 'center',
+            }}
+          >
+            <span className="pill-badge" style={{ marginBottom: '12px', background: '#e8f8f0', color: '#137a4e', borderColor: 'rgba(31,157,107,0.25)' }}>
+              STEP 1 · REQUIRED BEFORE REGISTRATION
+            </span>
+            <h2
+              className="font-display"
+              style={{ fontSize: 'clamp(22px, 4vw, 30px)', fontWeight: 800, color: 'var(--violet-ink)', marginBottom: '10px' }}
+            >
+              Join the GoodBuild WhatsApp Community
+            </h2>
+            <p style={{ maxWidth: '650px', margin: '0 auto 18px', color: 'var(--grey-600)', fontSize: '14px', lineHeight: 1.6 }}>
+              Join for scholarship announcements, application guidance, and support. After joining, return here and confirm to unlock the pre-registration form.
+            </p>
+            <a
+              href={whatsappCommunityUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setCommunityInviteOpened(true)}
+              className="btn-primary"
+              style={{ backgroundColor: '#168f55', boxShadow: '0 4px 14px rgba(22,143,85,0.24)' }}
+            >
+              Join the WhatsApp Community ↗
+            </a>
+            {communityConfirmed ? (
+              <p role="status" style={{ marginTop: '16px', color: '#137a4e', fontWeight: 700, fontSize: '14px' }}>
+                ✓ Community step confirmed. Registration is now unlocked below.
+              </p>
+            ) : communityInviteOpened ? (
+              <div style={{ marginTop: '16px' }}>
+                <button
+                  type="button"
+                  onClick={onCommunityConfirmation}
+                  className="btn-primary"
+                  style={{ backgroundColor: 'var(--violet)', boxShadow: 'none' }}
+                >
+                  I’ve joined — continue to registration
+                </button>
+                <p style={{ marginTop: '8px', color: 'var(--grey-600)', fontSize: '12px' }}>
+                  Please confirm after joining. Membership is not automatically verified by this website.
+                </p>
+              </div>
+            ) : (
+              <p style={{ marginTop: '12px', color: 'var(--grey-600)', fontSize: '12px' }}>
+                Registration unlocks after you open the community link and confirm you’ve joined.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* HERO SECTION */}
       <section style={{ padding: '30px 0 50px', textAlign: 'center' }}>
@@ -123,7 +167,7 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
               lineHeight: 1.6,
             }}
           >
-            The official FUTMinna Hackathon by GoodBuild and GoodCash. Build decentralized applications or games powered by GoodDollar (G$) on Celo, get ranked on the student leaderboard, and compete for the ₦150,000 scholarship prize.
+            The FUTMinna scholarship program by GoodBuild and GoodCash. Create a decentralized application or game powered by GoodDollar (G$) on Celo and compete for the ₦150,000 scholarship prize.
           </p>
 
           {/* 2-COLUMN FUNNEL HERO: SCHOLARSHIP PRIZE CARD (LEFT) + REGISTRATION FUNNEL CARD (RIGHT) */}
@@ -177,21 +221,6 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
                   </div>
                 </div>
 
-                {/* Relational Link back to main hackathon page */}
-                <div style={{ borderTop: '1px solid var(--hairline)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-                  <span style={{ fontSize: '12px', color: 'var(--grey-600)' }}>
-                    Also eligible for the general hackathon?
-                  </span>
-                  <a
-                    href="https://goodbuildit.xyz/hackathon/futminna"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--violet)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                  >
-                    <span>View Live Leaderboard</span>
-                    <span>↗</span>
-                  </a>
-                </div>
               </div>
             </div>
 
@@ -237,7 +266,7 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
                     marginBottom: '24px',
                   }}
                 >
-                  Step 1: Complete your entry details below. You will be assigned to the official FUTMinna scholarship cohort, receive starter building blocks, and then redirect directly to the main project submission workspace.
+                  Complete your entry details to join the official FUTMinna scholarship cohort and receive information about the next steps.
                 </p>
 
                 {/* Funnel Roadmap Steps */}
@@ -276,11 +305,11 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
 
               {/* Primary Funnel Redirect Button */}
               <div>
-                <a
-                  href="#scholarship-registration"
-                  onClick={scrollToRegistration}
-                  className="btn-primary"
-                  style={{
+                {communityConfirmed ? (
+                  <a
+                    href="#/registration"
+                    className="btn-primary"
+                    style={{
                     width: '100%',
                     padding: '16px 24px',
                     fontSize: '16px',
@@ -291,11 +320,16 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px'
-                  }}
-                >
-                  <span>Start Pre-Registration Form</span>
-                  <span style={{ fontSize: '18px' }}>→</span>
-                </a>
+                    }}
+                  >
+                    <span>Start Pre-Registration Form</span>
+                    <span style={{ fontSize: '18px' }}>→</span>
+                  </a>
+                ) : (
+                  <p style={{ textAlign: 'center', color: 'var(--grey-600)', fontSize: '13px' }}>
+                    Join the WhatsApp community above to unlock registration.
+                  </p>
+                )}
                 
                 <p
                   style={{
@@ -306,7 +340,7 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
                     lineHeight: 1.5
                   }}
                 >
-                  Takes under 60 seconds • Automatic redirection to main hackathon portal
+                  Takes under 60 seconds • Begin your scholarship application
                 </p>
               </div>
             </div>
@@ -408,61 +442,21 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
 
             <div style={{ marginTop: '28px', paddingTop: '20px', borderTop: '1px solid var(--hairline)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <span style={{ fontSize: '13px', color: 'var(--grey-600)' }}>Ready to begin your journey?</span>
-              <a
-                href="#scholarship-registration"
-                onClick={scrollToRegistration}
-                className="btn-primary"
-                style={{ padding: '12px 24px', fontSize: '14px' }}
-              >
-                Proceed to Entry Form →
-              </a>
+              {communityConfirmed ? (
+                <a
+                  href="#/registration"
+                  className="btn-primary"
+                  style={{ padding: '12px 24px', fontSize: '14px' }}
+                >
+                  Proceed to Entry Form →
+                </a>
+              ) : (
+                <span style={{ fontSize: '13px', color: 'var(--grey-600)' }}>
+                  Join and confirm in the WhatsApp step above to continue.
+                </span>
+              )}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section
-        id="scholarship-registration"
-        style={{ padding: '60px 0', background: 'var(--surface)', borderTop: '1px solid var(--hairline)' }}
-      >
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-            <span className="pill-badge" style={{ marginBottom: '12px' }}>Scholarship Application</span>
-            <h2
-              className="font-display"
-              style={{
-                fontSize: 'clamp(26px, 4vw, 34px)',
-                fontWeight: 800,
-                color: 'var(--violet-ink)',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Complete Your Pre-Registration
-            </h2>
-          </div>
-
-          <div className="card-gb" style={{ padding: '12px', border: '1.5px solid var(--violet-mist)' }}>
-            <iframe
-              src={registrationUrl}
-              title="GoodBuild Scholarship pre-registration form"
-              loading="lazy"
-              style={{
-                display: 'block',
-                width: '100%',
-                height: '900px',
-                border: 0,
-                borderRadius: '12px',
-                background: 'var(--surface)',
-              }}
-            />
-          </div>
-
-          <p style={{ textAlign: 'center', marginTop: '16px', color: 'var(--grey-600)', fontSize: '13px' }}>
-            If the form does not load here,{' '}
-            <a href={registrationUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--violet)', fontWeight: 700 }}>
-              open it in a new tab
-            </a>.
-          </p>
         </div>
       </section>
 
