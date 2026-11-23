@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <a href="#/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           {/* GOODBUILD BRAND SVG ICON */}
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="36" height="36" rx="12" fill="#592E81" />
@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
           >
             GoodBuild
           </span>
-        </div>
+        </a>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
           <span className="pill-badge header-network-pill">
@@ -39,8 +39,26 @@ export const Header: React.FC = () => {
               <circle cx="4" cy="4" r="3" fill="#1F9D6B" />
               <circle cx="4" cy="4" r="4" stroke="#1F9D6B" strokeOpacity="0.3" strokeWidth="1.5" />
             </svg>
-            Celo Mainnet & Sepolia
+            Celo Mainnet &amp; Sepolia
           </span>
+          <a
+            href="#/scholarship"
+            className="scholarship-nav-link"
+            style={{
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'var(--violet)',
+              textDecoration: 'none',
+              padding: '8px 16px',
+              borderRadius: '9999px',
+              border: '1.5px solid var(--violet-mist)',
+              background: 'rgba(89,46,129,0.06)',
+              transition: 'background 0.18s, border-color 0.18s',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            🎓 Scholarship Track
+          </a>
           <a
             href="#early-access"
             className="btn-primary"
@@ -55,6 +73,15 @@ export const Header: React.FC = () => {
           .header-network-pill {
             display: none !important;
           }
+        }
+        @media (max-width: 420px) {
+          .scholarship-nav-link {
+            display: none !important;
+          }
+        }
+        .scholarship-nav-link:hover {
+          background: rgba(89,46,129,0.12) !important;
+          border-color: var(--violet) !important;
         }
       `}</style>
     </div>
