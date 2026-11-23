@@ -14,6 +14,15 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
 }) => {
   const [communityInviteOpened, setCommunityInviteOpened] = React.useState(false);
 
+  React.useEffect(() => {
+    if (!communityConfirmed || !communityInviteOpened) return;
+
+    document.getElementById('scholarship-registration-cta')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, [communityConfirmed, communityInviteOpened]);
+
   return (
     <div style={{ position: 'relative', overflowX: 'hidden', minHeight: '100vh', paddingBottom: '60px' }}>
       {/* Ambient background glows */}
@@ -251,7 +260,7 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
             </div>
 
             {/* RIGHT: Funnel Pre-Registration Action Card */}
-            <div className="card-gb scholarship-funnel-card">
+            <div id="scholarship-registration-cta" className="card-gb scholarship-funnel-card">
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
                   <span
