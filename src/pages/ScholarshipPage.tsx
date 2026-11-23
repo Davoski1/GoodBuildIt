@@ -59,23 +59,23 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
           <div
             className="card-gb"
             style={{
-              padding: '28px',
-              border: '2px solid #25D366',
-              background: 'linear-gradient(135deg, #f0fff6 0%, #ffffff 100%)',
+              padding: '24px',
+              border: '1px solid var(--hairline)',
+              background: 'var(--surface)',
               textAlign: 'center',
             }}
           >
-            <span className="pill-badge" style={{ marginBottom: '12px', background: '#e8f8f0', color: '#137a4e', borderColor: 'rgba(31,157,107,0.25)' }}>
-              STEP 1 · REQUIRED BEFORE REGISTRATION
+            <span className="pill-badge" style={{ marginBottom: '10px', background: '#f0f7f2', color: '#3e7254', borderColor: '#dce9df' }}>
+              STEP 1 · COMMUNITY
             </span>
             <h2
               className="font-display"
-              style={{ fontSize: 'clamp(22px, 4vw, 30px)', fontWeight: 800, color: 'var(--violet-ink)', marginBottom: '10px' }}
+              style={{ fontSize: 'clamp(20px, 3.5vw, 26px)', fontWeight: 800, color: 'var(--violet-ink)', marginBottom: '8px' }}
             >
-              Join the GoodBuild WhatsApp Community
+              Join our WhatsApp community
             </h2>
-            <p style={{ maxWidth: '650px', margin: '0 auto 18px', color: 'var(--grey-600)', fontSize: '14px', lineHeight: 1.6 }}>
-              Join for scholarship announcements, application guidance, and support. After joining, return here and confirm to unlock the pre-registration form.
+            <p style={{ maxWidth: '560px', margin: '0 auto 16px', color: 'var(--grey-600)', fontSize: '14px', lineHeight: 1.55 }}>
+              Get scholarship updates and applicant support. Join first, then return here to continue.
             </p>
             <a
               href={whatsappCommunityUrl}
@@ -83,31 +83,31 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
               rel="noopener noreferrer"
               onClick={() => setCommunityInviteOpened(true)}
               className="btn-primary"
-              style={{ backgroundColor: '#168f55', boxShadow: '0 4px 14px rgba(22,143,85,0.24)' }}
+              style={{ backgroundColor: '#397a55', boxShadow: '0 3px 10px rgba(57,122,85,0.16)' }}
             >
-              Join the WhatsApp Community ↗
+              Join WhatsApp ↗
             </a>
             {communityConfirmed ? (
-              <p role="status" style={{ marginTop: '16px', color: '#137a4e', fontWeight: 700, fontSize: '14px' }}>
-                ✓ Community step confirmed. Registration is now unlocked below.
+              <p role="status" style={{ marginTop: '12px', color: '#477558', fontWeight: 600, fontSize: '13px' }}>
+                Community step confirmed. Registration is unlocked.
               </p>
             ) : communityInviteOpened ? (
-              <div style={{ marginTop: '16px' }}>
+              <div style={{ marginTop: '12px' }}>
                 <button
                   type="button"
                   onClick={onCommunityConfirmation}
                   className="btn-primary"
-                  style={{ backgroundColor: 'var(--violet)', boxShadow: 'none' }}
+                  style={{ backgroundColor: 'var(--violet)', boxShadow: 'none', padding: '11px 20px', fontSize: '14px' }}
                 >
-                  I’ve joined — continue to registration
+                  I’ve joined — continue
                 </button>
-                <p style={{ marginTop: '8px', color: 'var(--grey-600)', fontSize: '12px' }}>
-                  Please confirm after joining. Membership is not automatically verified by this website.
+                <p style={{ marginTop: '7px', color: 'var(--grey-600)', fontSize: '11px' }}>
+                  Membership isn’t verified automatically.
                 </p>
               </div>
             ) : (
-              <p style={{ marginTop: '12px', color: 'var(--grey-600)', fontSize: '12px' }}>
-                Registration unlocks after you open the community link and confirm you’ve joined.
+              <p style={{ marginTop: '10px', color: 'var(--grey-600)', fontSize: '12px' }}>
+                Registration opens after you join and confirm.
               </p>
             )}
           </div>
@@ -169,6 +169,32 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
           >
             The FUTMinna scholarship program by GoodBuild and GoodCash. Create a decentralized application or game powered by GoodDollar (G$) on Celo and compete for the ₦150,000 scholarship prize.
           </p>
+
+          <figure
+            style={{
+              width: 'min(100%, 480px)',
+              margin: '0 auto 40px',
+              padding: '10px',
+              background: 'var(--surface)',
+              border: '1px solid var(--hairline)',
+              borderRadius: 'var(--radius-card)',
+              boxShadow: 'var(--shadow-pop)',
+            }}
+          >
+            <img
+              src="goodbuild-scholarship-poster.png"
+              alt="GoodBuild and GoodCash FUTMinna student scholarship poster announcing a ₦150,000 prize"
+              style={{
+                display: 'block',
+                width: '100%',
+                height: 'auto',
+                borderRadius: '16px',
+              }}
+            />
+            <figcaption style={{ padding: '10px 8px 2px', color: 'var(--grey-600)', fontSize: '12px' }}>
+              Official GoodBuild × GoodCash scholarship poster
+            </figcaption>
+          </figure>
 
           {/* 2-COLUMN FUNNEL HERO: SCHOLARSHIP PRIZE CARD (LEFT) + REGISTRATION FUNNEL CARD (RIGHT) */}
           <div className="scholarship-grid">
