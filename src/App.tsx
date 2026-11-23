@@ -26,7 +26,7 @@ const MainPage: React.FC<{ registrationUrl: string }> = ({ registrationUrl }) =>
 export const App: React.FC = () => {
   // Extract and construct attribution referral URL
   const registrationUrl = useMemo(() => {
-    const baseFormUrl = 'https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpLWY0IFrU8FPPyqVXFSySpJ';
+    const baseFormUrl = 'https://fjpal2fsois0.jp.larksuite.com/share/base/form/shrjpFUIbnSZZXBtVj6Kcvlo1Mf';
 
     if (typeof window === 'undefined') return baseFormUrl;
 

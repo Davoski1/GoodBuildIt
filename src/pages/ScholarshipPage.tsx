@@ -6,6 +6,11 @@ interface ScholarshipPageProps {
 }
 
 export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUrl }) => {
+  const scrollToRegistration = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    document.getElementById('scholarship-registration')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div style={{ position: 'relative', overflowX: 'hidden', minHeight: '100vh', paddingBottom: '60px' }}>
       {/* Ambient background glows */}
@@ -272,9 +277,8 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
               {/* Primary Funnel Redirect Button */}
               <div>
                 <a
-                  href={registrationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#scholarship-registration"
+                  onClick={scrollToRegistration}
                   className="btn-primary"
                   style={{
                     width: '100%',
@@ -405,9 +409,8 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
             <div style={{ marginTop: '28px', paddingTop: '20px', borderTop: '1px solid var(--hairline)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <span style={{ fontSize: '13px', color: 'var(--grey-600)' }}>Ready to begin your journey?</span>
               <a
-                href={registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#scholarship-registration"
+                onClick={scrollToRegistration}
                 className="btn-primary"
                 style={{ padding: '12px 24px', fontSize: '14px' }}
               >
@@ -415,6 +418,51 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({ registrationUr
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        id="scholarship-registration"
+        style={{ padding: '60px 0', background: 'var(--surface)', borderTop: '1px solid var(--hairline)' }}
+      >
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+            <span className="pill-badge" style={{ marginBottom: '12px' }}>Scholarship Application</span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: 'clamp(26px, 4vw, 34px)',
+                fontWeight: 800,
+                color: 'var(--violet-ink)',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Complete Your Pre-Registration
+            </h2>
+          </div>
+
+          <div className="card-gb" style={{ padding: '12px', border: '1.5px solid var(--violet-mist)' }}>
+            <iframe
+              src={registrationUrl}
+              title="GoodBuild Scholarship pre-registration form"
+              loading="lazy"
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '900px',
+                border: 0,
+                borderRadius: '12px',
+                background: 'var(--surface)',
+              }}
+            />
+          </div>
+
+          <p style={{ textAlign: 'center', marginTop: '16px', color: 'var(--grey-600)', fontSize: '13px' }}>
+            If the form does not load here,{' '}
+            <a href={registrationUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--violet)', fontWeight: 700 }}>
+              open it in a new tab
+            </a>.
+          </p>
         </div>
       </section>
 
