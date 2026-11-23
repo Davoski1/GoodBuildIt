@@ -313,7 +313,7 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
                     </div>
                     <div>
                       <strong style={{ display: 'block', color: 'var(--violet-ink)' }}>Verify Real Identity with GoodDollar</strong>
-                      <span style={{ color: 'var(--grey-600)', fontSize: '12px' }}>Free one-time face-verification to ensure sybil-proof fair ranking.</span>
+                      <span style={{ color: 'var(--grey-600)', fontSize: '12px' }}>One-time face verification helps maintain fair, Sybil-resistant rankings.</span>
                     </div>
                   </div>
 
@@ -405,7 +405,7 @@ export const ScholarshipPage: React.FC<ScholarshipPageProps> = ({
                 Get Verified with GoodDollar
               </h3>
               <p style={{ color: 'var(--grey-600)', fontSize: '14px', lineHeight: 1.6 }}>
-                Complete GoodDollar's free face verification check once. It guarantees each student is a unique human builder, maintaining fair voting and prize integrity.
+                Complete GoodDollar's face verification check once. It helps ensure each student is a unique human builder and supports fair voting and prize integrity.
               </p>
             </div>
 
